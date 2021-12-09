@@ -1,4 +1,4 @@
-# Propsal to swap deprecated request for node-fetch
+# Proposal to swap deprecated request for node-fetch
 
 Request is fully deprecated and has some security vulnerabilities requiring us to switch libraries (see #414 for more information).
 
