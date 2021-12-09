@@ -20,7 +20,7 @@ The openapi-generator uses the browser implementation of Fetch so you must subst
 
 ## Implementation steps
 
-@davidgamero and I will work to implement the following changes and have created the following plan.
+@davidgamero and I will work to implement the following changes.
 
 ### Other repositories
 
