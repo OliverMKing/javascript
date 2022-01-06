@@ -62,7 +62,7 @@ if (!globalThis.fetch) {
 }
 ```
 
--   [ ] Generate api with `npm run generate`
+-   [x] Generate api with `npm run generate`
 -   [ ] Match src/gen/api.ts to new generated layout (it changes slightly)
 -   [ ] Fix errors in /src folder (due to new api)
 -   [ ] Fix errors in test (due to new api)
