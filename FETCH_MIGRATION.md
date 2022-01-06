@@ -46,7 +46,7 @@ Code will be on the `master` branch.
 
 -   [x] Increment `OPENAPI_GENERATOR_COMMIT` to be [version 5.3.0](https://github.com/OpenAPITools/openapi-generator/releases/tag/v5.3.0) (with the optional parameters addition)
 -   [x] `npm install node-fetch` to install node-fetch
--   [ ] Switch generate-client script to use typescript-fetch
+-   [x] Switch generate-client script to use typescript-fetch
 -   [ ] Import and inject node-fetch in `src/api.ts` with the following
 
 ```typescript
