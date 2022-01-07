@@ -14,6 +14,12 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    IntOrString,
+    IntOrStringFromJSON,
+    IntOrStringFromJSONTyped,
+    IntOrStringToJSON,
+} from './IntOrString';
+import {
     V1HTTPHeader,
     V1HTTPHeaderFromJSON,
     V1HTTPHeaderFromJSONTyped,
@@ -45,11 +51,11 @@ export interface V1HTTPGetAction {
      */
     path?: string;
     /**
-     * Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
-     * @type {object}
+     * IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
+     * @type {IntOrString}
      * @memberof V1HTTPGetAction
      */
-    port: object;
+    port: IntOrString;
     /**
      * Scheme to use for connecting to the host. Defaults to HTTP.
      * @type {string}
@@ -71,7 +77,7 @@ export function V1HTTPGetActionFromJSONTyped(json: any, ignoreDiscriminator: boo
         'host': !exists(json, 'host') ? undefined : json['host'],
         'httpHeaders': !exists(json, 'httpHeaders') ? undefined : ((json['httpHeaders'] as Array<any>).map(V1HTTPHeaderFromJSON)),
         'path': !exists(json, 'path') ? undefined : json['path'],
-        'port': json['port'],
+        'port': IntOrStringFromJSON(json['port']),
         'scheme': !exists(json, 'scheme') ? undefined : json['scheme'],
     };
 }
@@ -88,7 +94,7 @@ export function V1HTTPGetActionToJSON(value?: V1HTTPGetAction | null): any {
         'host': value.host,
         'httpHeaders': value.httpHeaders === undefined ? undefined : ((value.httpHeaders as Array<any>).map(V1HTTPHeaderToJSON)),
         'path': value.path,
-        'port': value.port,
+        'port': IntOrStringToJSON(value.port),
         'scheme': value.scheme,
     };
 }
