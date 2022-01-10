@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    IntOrString,
-    IntOrStringFromJSON,
-    IntOrStringFromJSONTyped,
-    IntOrStringToJSON,
-} from './IntOrString';
-
 /**
  * NetworkPolicyPort describes a port to allow traffic on
  * @export
@@ -33,11 +26,11 @@ export interface V1NetworkPolicyPort {
      */
     endPort?: number;
     /**
-     * IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
-     * @type {IntOrString}
+     * The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+     * @type {object}
      * @memberof V1NetworkPolicyPort
      */
-    port?: IntOrString;
+    port?: object;
     /**
      * The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
      * @type {string}
@@ -57,7 +50,7 @@ export function V1NetworkPolicyPortFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'endPort': !exists(json, 'endPort') ? undefined : json['endPort'],
-        'port': !exists(json, 'port') ? undefined : IntOrStringFromJSON(json['port']),
+        'port': !exists(json, 'port') ? undefined : json['port'],
         'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
     };
 }
@@ -72,7 +65,7 @@ export function V1NetworkPolicyPortToJSON(value?: V1NetworkPolicyPort | null): a
     return {
         
         'endPort': value.endPort,
-        'port': IntOrStringToJSON(value.port),
+        'port': value.port,
         'protocol': value.protocol,
     };
 }

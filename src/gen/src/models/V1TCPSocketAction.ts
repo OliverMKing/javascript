@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import {
-    IntOrString,
-    IntOrStringFromJSON,
-    IntOrStringFromJSONTyped,
-    IntOrStringToJSON,
-} from './IntOrString';
-
 /**
  * TCPSocketAction describes an action based on opening a socket
  * @export
@@ -33,11 +26,11 @@ export interface V1TCPSocketAction {
      */
     host?: string;
     /**
-     * IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
-     * @type {IntOrString}
+     * Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+     * @type {object}
      * @memberof V1TCPSocketAction
      */
-    port: IntOrString;
+    port: object;
 }
 
 export function V1TCPSocketActionFromJSON(json: any): V1TCPSocketAction {
@@ -51,7 +44,7 @@ export function V1TCPSocketActionFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'host': !exists(json, 'host') ? undefined : json['host'],
-        'port': IntOrStringFromJSON(json['port']),
+        'port': json['port'],
     };
 }
 
@@ -65,7 +58,7 @@ export function V1TCPSocketActionToJSON(value?: V1TCPSocketAction | null): any {
     return {
         
         'host': value.host,
-        'port': IntOrStringToJSON(value.port),
+        'port': value.port,
     };
 }
 

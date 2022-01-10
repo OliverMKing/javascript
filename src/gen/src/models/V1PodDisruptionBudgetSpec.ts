@@ -14,12 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    IntOrString,
-    IntOrStringFromJSON,
-    IntOrStringFromJSONTyped,
-    IntOrStringToJSON,
-} from './IntOrString';
-import {
     V1LabelSelector,
     V1LabelSelectorFromJSON,
     V1LabelSelectorFromJSONTyped,
@@ -33,17 +27,17 @@ import {
  */
 export interface V1PodDisruptionBudgetSpec {
     /**
-     * IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
-     * @type {IntOrString}
+     * An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+     * @type {object}
      * @memberof V1PodDisruptionBudgetSpec
      */
-    maxUnavailable?: IntOrString;
+    maxUnavailable?: object;
     /**
-     * IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
-     * @type {IntOrString}
+     * An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+     * @type {object}
      * @memberof V1PodDisruptionBudgetSpec
      */
-    minAvailable?: IntOrString;
+    minAvailable?: object;
     /**
      * 
      * @type {V1LabelSelector}
@@ -62,8 +56,8 @@ export function V1PodDisruptionBudgetSpecFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'maxUnavailable': !exists(json, 'maxUnavailable') ? undefined : IntOrStringFromJSON(json['maxUnavailable']),
-        'minAvailable': !exists(json, 'minAvailable') ? undefined : IntOrStringFromJSON(json['minAvailable']),
+        'maxUnavailable': !exists(json, 'maxUnavailable') ? undefined : json['maxUnavailable'],
+        'minAvailable': !exists(json, 'minAvailable') ? undefined : json['minAvailable'],
         'selector': !exists(json, 'selector') ? undefined : V1LabelSelectorFromJSON(json['selector']),
     };
 }
@@ -77,8 +71,8 @@ export function V1PodDisruptionBudgetSpecToJSON(value?: V1PodDisruptionBudgetSpe
     }
     return {
         
-        'maxUnavailable': IntOrStringToJSON(value.maxUnavailable),
-        'minAvailable': IntOrStringToJSON(value.minAvailable),
+        'maxUnavailable': value.maxUnavailable,
+        'minAvailable': value.minAvailable,
         'selector': V1LabelSelectorToJSON(value.selector),
     };
 }
